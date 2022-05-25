@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="product_trxn.cmd" />
+        <module name="product.query" />
+        <module name="product.cmd" />
+        <module name="product.common" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="product_transaction" target="11" />
+      <module name="product_transaction.cmd" target="11" />
+      <module name="product_transaction.common" target="11" />
+      <module name="product_transaction.query" target="11" />
+      <module name="producttrxn.cmd" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ProductTransaction" options="-parameters" />
+      <module name="cqrs.core" options="-parameters" />
+      <module name="product.cmd" options="-parameters" />
+      <module name="product.common" options="-parameters" />
+      <module name="product.query" options="-parameters" />
+      <module name="product_transaction" options="-parameters" />
+      <module name="product_transaction.cmd" options="-parameters" />
+      <module name="product_transaction.common" options="-parameters" />
+      <module name="product_transaction.query" options="-parameters" />
+      <module name="product_trxn.cmd" options="-parameters" />
+    </option>
+  </component>
+</project>
