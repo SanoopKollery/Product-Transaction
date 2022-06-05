@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.text.MessageFormat;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -26,7 +27,7 @@ public class ProductTransactionController {
     private CommandDispatcher commandDispatcher;
 
     @PostMapping("/place-bid")
-    public ResponseEntity<BaseResponse> saveTransaction(@RequestBody Transaction command) {
+    public ResponseEntity<BaseResponse> saveTransaction(@RequestBody @Valid  Transaction command) {
             String id  = UUID.randomUUID().toString();
             command.setTrx_ID(id);
         try {

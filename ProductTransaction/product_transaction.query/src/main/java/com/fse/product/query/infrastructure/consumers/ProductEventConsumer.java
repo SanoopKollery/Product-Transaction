@@ -2,6 +2,7 @@ package com.fse.product.query.infrastructure.consumers;
 
 
 import com.fse.product.common.events.ProductTransactionEvent;
+import com.fse.product.common.events.UpdateBidAmountCommand;
 import com.fse.product.query.infrastructure.handlers.EventHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -21,5 +22,11 @@ public class ProductEventConsumer implements EventConsumer {
         ack.acknowledge();
     }
 
+    @KafkaListener(topics = "UpdateBidAmountCommand", groupId = "${spring.kafka.consumer.group-id}")
+    @Override
+    public void consume(@Payload UpdateBidAmountCommand event, Acknowledgment ack) {
+        this.eventHandler.on(event);
+        ack.acknowledge();
+    }
 
 }

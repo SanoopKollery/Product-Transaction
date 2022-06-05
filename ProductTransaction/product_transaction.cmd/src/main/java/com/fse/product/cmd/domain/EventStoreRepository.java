@@ -8,7 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface EventStoreRepository extends JpaRepository<EventModel, Long> {
+public interface EventStoreRepository extends JpaRepository<EventModel, String> {
 
     List<EventModel> findByAggregateIdentifier(String aggregateIdentifier);
+    EventModel findByProductIDAndEmail(int productID,String email);
 }

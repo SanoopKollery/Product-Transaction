@@ -3,6 +3,7 @@ package com.fse.product.cmd;
 import com.fse.cqrs.core.infrastructure.CommandDispatcher;
 import com.fse.product.cmd.api.commands.Transaction;
 import com.fse.product.cmd.api.commands.CommandHandler;
+import com.fse.product.cmd.api.commands.UpdateBidAmountCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -30,6 +31,8 @@ public class CommandApplication {
 	public void registerHandlers() {
 
 		commandDispatcher.registerHandler(Transaction.class, commandHandler::handle);
+		commandDispatcher.registerHandler(UpdateBidAmountCommand.class, commandHandler::handle);
+
 	}
 
 }

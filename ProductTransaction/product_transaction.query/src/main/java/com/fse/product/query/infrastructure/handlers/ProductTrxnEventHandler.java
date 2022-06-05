@@ -2,10 +2,13 @@ package com.fse.product.query.infrastructure.handlers;
 
 
 import com.fse.product.common.events.ProductTransactionEvent;
+import com.fse.product.common.events.UpdateBidAmountCommand;
 import com.fse.product.query.domain.Transaction;
 import com.fse.product.query.domain.ProductTrxnRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class ProductTrxnEventHandler implements EventHandler {
@@ -30,5 +33,17 @@ public class ProductTrxnEventHandler implements EventHandler {
                 .bidAmount(event.getBidAmount())
                 .build();
         productTrxnRepository.save(transaction);
+    }
+
+    @Override
+    public void on(UpdateBidAmountCommand event) {
+        Optional<Transaction> trxnEntry= productTrxnRepository.findById(event.getId());
+        if (!trxnEntry.isPresent()) {
+            return;
+        }
+       var bidAmount = event.getBidAmount();
+        trxnEntry.get().setBidAmount(bidAmount);
+        productTrxnRepository.save(trxnEntry.get());
+
     }
 }

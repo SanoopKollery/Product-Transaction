@@ -4,17 +4,18 @@ import com.fse.cqrs.core.domain.AggregateRoot;
 import com.fse.product.cmd.api.commands.Transaction;
 import com.fse.product.common.events.ProductTransactionEvent;
 
+import com.fse.product.common.events.UpdateBidAmountCommand;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @NoArgsConstructor
 public class ProductTrxnAggregate extends AggregateRoot {
-    private Boolean active;
-    private double balance;
+    private BigDecimal bidAmount;
 
-    public double getBalance() {
-        return this.balance;
+    public BigDecimal getBidAmount() {
+        return this.bidAmount;
     }
 
     public ProductTrxnAggregate(Transaction command) {
@@ -44,11 +45,23 @@ public class ProductTrxnAggregate extends AggregateRoot {
         else
             return false;
     }
-  /* public void apply(ProductTransactionEvent event) {
-        this.id = event.getId();
-        this.active = true;
-       // this. = event.getCategory();
-    }*/
+  public void apply(ProductTransactionEvent event) {
+        this.id = event.getTrx_ID();
+        this.productID = event.getProductId();
+        this.email = event.getEmail();
+    }
+
+    public void updateBidAmount (String trxId, BigDecimal amount,int productID,
+                                 String email) {
+
+        raiseEvent(UpdateBidAmountCommand.builder()
+                .id(trxId)
+                .trx_ID(trxId)
+                .productId(productID)
+                .email(email)
+                .bidAmount(amount)
+                .build());
+    }
 
 
 }

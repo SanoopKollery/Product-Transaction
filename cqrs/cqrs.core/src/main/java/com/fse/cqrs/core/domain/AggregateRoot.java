@@ -1,6 +1,7 @@
 package com.fse.cqrs.core.domain;
 
 import com.fse.cqrs.core.events.BaseEvent;
+import lombok.Data;
 
 
 import java.text.MessageFormat;
@@ -9,8 +10,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@Data
 public abstract class AggregateRoot {
     protected String id;
+    protected int productID;
+    protected String email;
     private int version = -1;
 
     private final List<BaseEvent> changes = new ArrayList<>();
@@ -24,20 +28,9 @@ public abstract class AggregateRoot {
         this.changes.clear();
     }
 
-    public String getId() {
-        return this.id;
-    }
-
-    public int getVersion() {
-        return this.version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
-    }
-
     protected void applyChange(BaseEvent event, Boolean isNewEvent) {
         try {
+            this.id = event.getId(); //sanoop
             var method = getClass().getDeclaredMethod("apply", event.getClass());
             method.setAccessible(true);
             method.invoke(this, event);
@@ -51,11 +44,11 @@ public abstract class AggregateRoot {
             }
         }
     }
+    public void replayEvents(Iterable<BaseEvent> events) {
+        events.forEach(event -> applyChange(event, false));
+    }
 
     public void raiseEvent(BaseEvent event) {
         applyChange(event, true);
-
-
-
     }
 }

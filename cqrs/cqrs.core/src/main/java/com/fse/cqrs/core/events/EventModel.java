@@ -15,14 +15,17 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EventModel {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+   // @GeneratedValue(strategy = GenerationType.AUTO)
+    private String id;
+    private int productID;
+    private String email;
     private Date timeStamp;
     private String aggregateIdentifier;
     private String aggregateType;
     private int version;
     private String eventType;
-@OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private BaseEvent eventData;
 }

@@ -17,4 +17,13 @@ public class ProductCommandHandler implements CommandHandler {
         eventSourcingHandler.save(aggregate);
     }
 
+    @Override
+    public void handle(UpdateBidAmountCommand command) {
+        var aggregate = eventSourcingHandler.getById(command.getId());
+        aggregate.updateBidAmount(command.getTrx_ID(),command.getNewBidAmount(),
+                command.getProductID(),command.getEmailID());
+        eventSourcingHandler.save(aggregate);
+
+    }
+
 }
